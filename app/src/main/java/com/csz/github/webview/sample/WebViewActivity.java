@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.Log;
 import android.view.KeyEvent;
 import android.webkit.CookieManager;
@@ -17,6 +19,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.csz.github.view.utils.lru.Util;
 import com.google.gson.Gson;
 import com.csz.github.view.FastWebView;
 import com.csz.github.view.FastWebViewPool;
@@ -31,6 +34,7 @@ import com.csz.github.view.offline.ResourceInterceptor;
 import com.csz.github.view.utils.LogUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,8 +83,7 @@ public class WebViewActivity extends AppCompatActivity {
         webSettings.setUserAgentString("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36");
 
         // 设置正确的cache mode以支持离线加载
-        int cacheMode = NetworkUtils.isAvailable(this) ?
-                WebSettings.LOAD_DEFAULT : WebSettings.LOAD_CACHE_ELSE_NETWORK;
+        int cacheMode = NetworkUtils.isAvailable(this) ? WebSettings.LOAD_DEFAULT : WebSettings.LOAD_CACHE_ELSE_NETWORK;
         webSettings.setCacheMode(cacheMode);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -92,10 +95,7 @@ public class WebViewActivity extends AppCompatActivity {
             cookieManager.setAcceptThirdPartyCookies(fastWebView, true);
             webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
         }
-        CacheConfig config = new CacheConfig.Builder(this)
-                .setCacheDir(getExternalCacheDir() + File.separator + "custom")
-                .setExtensionFilter(new DefaultMimeTypeFilter.WebMimeTypeFilter())
-                .build();
+        CacheConfig config = new CacheConfig.Builder(this).setCacheDir(getExternalCacheDir() + File.separator + "custom").setExtensionFilter(new DefaultMimeTypeFilter.WebMimeTypeFilter()).build();
         fastWebView.setCacheMode(FastCacheMode.FORCE, config);
         fastWebView.addResourceInterceptor(new ResourceInterceptor() {
             @Override
@@ -158,6 +158,19 @@ public class WebViewActivity extends AppCompatActivity {
             } else {
                 fastWebView.destroy();
             }
+        }
+       /* try {
+            //清空本地缓存
+           clearDisk();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+    }
+
+    private void clearDisk() throws IOException {
+        File dir = new File(getExternalCacheDir() + File.separator + "custom");
+        if (dir.exists()) {
+            Util.deleteContents(dir);
         }
     }
 

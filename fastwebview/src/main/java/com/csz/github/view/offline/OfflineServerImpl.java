@@ -6,6 +6,7 @@ import android.webkit.WebResourceResponse;
 import com.csz.github.view.config.CacheConfig;
 import com.csz.github.view.WebResource;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,4 +99,5 @@ public class OfflineServerImpl implements OfflineServer {
     private int getBaseInterceptorsCount() {
         return mBaseInterceptorList == null ? 0 : mBaseInterceptorList.size();
     }
+
 }

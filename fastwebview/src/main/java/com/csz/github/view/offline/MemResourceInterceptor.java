@@ -1,5 +1,7 @@
 package com.csz.github.view.offline;
 
+import android.util.Log;
+
 import androidx.collection.LruCache;
 
 import com.csz.github.view.WebResource;

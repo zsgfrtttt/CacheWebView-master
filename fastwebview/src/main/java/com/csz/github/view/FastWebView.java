@@ -155,4 +155,5 @@ public class FastWebView extends WebView implements FastOpenApi {
     public static void setDebug(boolean debug) {
         LogUtils.DEBUG = debug;
     }
+
 }

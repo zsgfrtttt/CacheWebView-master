@@ -1,13 +1,11 @@
 package com.csz.github.view;
 
-import android.content.MutableContextWrapper;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Message;
 import androidx.annotation.RequiresApi;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.webkit.ClientCertRequest;
 import android.webkit.HttpAuthHandler;
@@ -295,4 +293,5 @@ class InnerFastClient extends WebViewClient implements FastOpenApi, Destroyable 
             mWebViewCache.destroy();
         }
     }
+
 }

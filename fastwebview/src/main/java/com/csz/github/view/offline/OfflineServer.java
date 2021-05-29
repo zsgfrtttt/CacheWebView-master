@@ -5,7 +5,7 @@ import android.webkit.WebResourceResponse;
 /**
  * @author caishuzhan
  */
-public interface OfflineServer {
+public interface OfflineServer{
 
     WebResourceResponse get(CacheRequest request);
 

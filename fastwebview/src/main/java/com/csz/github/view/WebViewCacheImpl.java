@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * @author caishuzhan
  */
-public class WebViewCacheImpl implements WebViewCache {
+public class WebViewCacheImpl implements WebViewCache  {
 
     private FastCacheMode mFastCacheMode;
     private CacheConfig mCacheConfig;
@@ -92,6 +92,6 @@ public class WebViewCacheImpl implements WebViewCache {
         mCacheConfig = null;
         mOfflineServer = null;
         mContext = null;
-
     }
+
 }

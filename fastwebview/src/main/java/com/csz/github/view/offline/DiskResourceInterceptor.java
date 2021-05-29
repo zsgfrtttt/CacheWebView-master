@@ -1,6 +1,7 @@
 package com.csz.github.view.offline;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.csz.github.view.WebResource;
 import com.csz.github.view.config.CacheConfig;
@@ -8,6 +9,7 @@ import com.csz.github.view.utils.StreamUtils;
 import com.csz.github.view.utils.lru.DiskLruCache;
 import com.csz.github.view.utils.HeaderUtils;
 import com.csz.github.view.utils.LogUtils;
+import com.csz.github.view.utils.lru.Util;
 
 import java.io.File;
 import java.io.IOException;
@@ -196,5 +198,8 @@ public class DiskResourceInterceptor implements Destroyable, ResourceInterceptor
         }
         return contentType != null && !mCacheConfig.getFilter().isFilter(contentType);
     }
+
+
+
 }
 

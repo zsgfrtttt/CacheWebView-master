@@ -5,7 +5,7 @@ import com.csz.github.view.WebResource;
 /**
  * @author caishuzhan
  */
-public interface ResourceInterceptor {
+public interface ResourceInterceptor{
 
     WebResource load(Chain chain);
 
