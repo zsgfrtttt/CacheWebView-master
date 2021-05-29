@@ -23,6 +23,7 @@ public class WebViewCacheImpl implements WebViewCache {
     private CacheConfig mCacheConfig;
     private OfflineServer mOfflineServer;
     private Context mContext;
+    private boolean isDestroy;
 
     WebViewCacheImpl(Context context) {
         mContext = context;
@@ -45,6 +46,9 @@ public class WebViewCacheImpl implements WebViewCache {
             cacheRequest.setWebViewCacheMode(cacheMode);
             Map<String, String> headers = webResourceRequest.getRequestHeaders();
             cacheRequest.setHeaders(headers);
+            if (isDestroy){
+                return null;
+            }
             return getOfflineServer().get(cacheRequest);
         }
         throw new IllegalStateException("an error occurred.");
@@ -58,7 +62,9 @@ public class WebViewCacheImpl implements WebViewCache {
 
     @Override
     public void addResourceInterceptor(ResourceInterceptor interceptor) {
-        getOfflineServer().addResourceInterceptor(interceptor);
+        if (!isDestroy) {
+            getOfflineServer().addResourceInterceptor(interceptor);
+        }
     }
 
     private synchronized OfflineServer getOfflineServer() {
@@ -81,9 +87,11 @@ public class WebViewCacheImpl implements WebViewCache {
         if (mOfflineServer != null) {
             mOfflineServer.destroy();
         }
+        isDestroy = true;
         // help gc
         mCacheConfig = null;
         mOfflineServer = null;
         mContext = null;
+
     }
 }
