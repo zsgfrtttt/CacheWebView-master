@@ -20,7 +20,7 @@
 
 ### 基本使用
 
-**仅需一行代码**
+**参考demo**
 ```java
         fastWebView.setWebChromeClient(new MonitorWebChromeClient());
         fastWebView.setWebViewClient(new MonitorWebViewClient());
